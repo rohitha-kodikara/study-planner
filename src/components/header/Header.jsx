@@ -4,11 +4,16 @@ import {
 import Logo from './Logo'
 import WeekMover from './WeekMover'
 
-const Header = () => {
+const Header = ({ currentWeekIndex, handleNextWeek, handlePreviousWeek, createWeekLabel }) => {
   return (
     <header className="mb-[21px] flex items-center justify-between gap-4">
          <Logo />
-        <WeekMover />
+        <WeekMover 
+          currentWeekIndex={currentWeekIndex}
+          handleNextWeek={handleNextWeek}
+          handlePreviousWeek={handlePreviousWeek}
+          createWeekLabel={createWeekLabel}
+        />
         </header>
   )
 }
