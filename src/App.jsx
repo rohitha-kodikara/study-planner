@@ -56,6 +56,10 @@ const sessionData = currentWeekSessions?.sessions ?? [];
 //submit session data.
 function handleSubmit(e) {
   e.preventDefault();
+  if (!formData.title || !formData.subject || !formData.day || !formData.duration) {
+    alert('Please fill in all fields before submitting.');
+    return;
+  }
   const newSession = {
       id: `s-${Math.floor(Math.random() * 1000)}`,
       title: formData.title,
