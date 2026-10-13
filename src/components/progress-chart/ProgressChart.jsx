@@ -19,7 +19,8 @@ const ProgressChart = ({ durationBySubject }) => {
       </div>
 
       <div className="space-y-[8px]">
-        {Object.entries(durationBySubject).map(([subject, duration]) => {
+        {
+        Object.entries(durationBySubject).map(([subject, duration]) => {
           const width = totalHours > 0
             ? (duration / totalHours) * 100
             : 0;

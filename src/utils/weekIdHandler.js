@@ -1,11 +1,12 @@
 import { formatDate } from './helpers'
+import { PLANNER_START_DATE } from './data'
 
 export function createWeekId(index) {
   return `week-${String(index + 1).padStart(4, '0')}`
 }
 
 export function createWeekLabel(index) {
-  const startDate = new Date(2026, 9, 12)
+  const startDate = new Date(PLANNER_START_DATE)
 
   startDate.setDate(startDate.getDate() + index * 7)
 

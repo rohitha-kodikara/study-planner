@@ -1,13 +1,9 @@
-
 import Header from "./components/header/Header"
 import AddSessionForm from './components/AddSessionForm'
 import WeekColumns from "./components/week-columns/WeekColumns"
 import ProgressChart from "./components/progress-chart/ProgressChart"
 import Footer from "./components/footer/Footer"
-
-
 import { useState } from "react"
-
 import {
   createWeekLabel,
   handleNextWeek,
@@ -15,12 +11,6 @@ import {
 } from "./utils/weekIdHandler"
 
 
-
-const hours = [
-  { subject: 'React', value: '7h', width: 'w-[58%]', color: 'bg-[#8274dd]' },
-  { subject: 'Maths', value: '3h', width: 'w-[26%]', color: 'bg-[#1da378]' },
-  { subject: 'English', value: '3h', width: 'w-[26%]', color: 'bg-[#db6136]' },
-]
 
 
 
@@ -35,9 +25,6 @@ function App() {
     duration: '',
   });
 
-  
-
-// const[selectedWeekId, setSelectedWeekId] = useState('week-0001');
 
 function goToNextWeek() {
   handleNextWeek({
@@ -54,22 +41,19 @@ function goToPreviousWeek() {
 }
 
 const currentWeek = weeksData[currentWeekIndex]
-//const currentWeekId = currentWeek?.id
-
-
 const currentWeekSessions = currentWeek?.sessions?.length > 0 ? currentWeek : null
 const sessionData = currentWeekSessions?.sessions ?? [];
 
 
  function handleFormChange(e) {
     const { name, value } = e.target;
-
     setFormData((previousFormData) => ({
       ...previousFormData,
       [name]: value,
     }));
   }
 
+//submit session data.
 function handleSubmit(e) {
   e.preventDefault();
   const newSession = {
@@ -77,36 +61,46 @@ function handleSubmit(e) {
       title: formData.title,
       subject: formData.subject,
       day: formData.day,
-      duration: parseInt(formData.duration, 10),
-    };
+      duration: parseInt(formData.duration, 10) ||0,
+      };
+       const updatedSessionData = [...sessionData, newSession];
+      setWeeksData(prevWeeksData => {
+        const updatedWeeksData = [...prevWeeksData];
+        updatedWeeksData[currentWeekIndex] = {
+          ...updatedWeeksData[currentWeekIndex],
+          sessions: updatedSessionData
+        };
+        return updatedWeeksData;
+      });
 
-  const updatedSessionData = [...sessionData, newSession];
-  
- setWeeksData(prevWeeksData => {
-    const updatedWeeksData = [...prevWeeksData];
-    updatedWeeksData[currentWeekIndex] = {
-      ...updatedWeeksData[currentWeekIndex],
-      sessions: updatedSessionData
-    };
-    return updatedWeeksData;
-  });
+      setFormData({
+          title: '',
+          subject: '',
+          day: '',
+          duration: '',
+        });
 
-  setFormData({
-      title: '',
-      subject: '',
-      day: '',
-      duration: '',
-    });
-
-}
+  }
 
 const durationBySubject = sessionData.reduce((totals, session) => {
   const { subject, duration } = session;
-
   totals[subject] = (totals[subject] || 0) + duration;
-
   return totals;
 }, {});
+
+
+//remove session data.
+function clearWeekSessions() {
+  setWeeksData(prevWeeksData => {
+    const updatedWeeksData = [...prevWeeksData];
+    updatedWeeksData[currentWeekIndex] = {
+      ...updatedWeeksData[currentWeekIndex],
+      sessions: []
+    };
+    return updatedWeeksData;
+  });
+  
+}
 
 
 
@@ -131,7 +125,7 @@ const durationBySubject = sessionData.reduce((totals, session) => {
 
         <ProgressChart durationBySubject={durationBySubject} />
     
-        <Footer />
+        <Footer clearWeekSessions={clearWeekSessions} />
       </div>
     </main>
 

@@ -8,4 +8,4 @@ export const subjectTone = {
   English: 'bg-[#db6136] text-white',
 };
 
-;
+export const PLANNER_START_DATE = new Date(2026, 9, 12);
