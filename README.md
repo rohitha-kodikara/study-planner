@@ -1,4 +1,6 @@
 # Study Planner
+<img width="1208" height="763" alt="image" src="https://github.com/user-attachments/assets/08dfe256-205d-4889-b81e-e13390aa1802" />
+
 
 A weekly study planner built with React and Tailwind CSS. You can plan study sessions for each day of the week, move between weeks, and see how many hours you plan to spend on each subject.
 
@@ -154,8 +156,8 @@ App
 ## Getting Started
 
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone : https://github.com/rohitha-kodikara/study-planner
+cd <repo-folder>
 npm install
 npm run dev
 ```
